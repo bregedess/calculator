@@ -4,6 +4,12 @@
     "keywords": ["jakmall"],
     "license": "proprietary",
     "type": "project",
+    "repositories": [{
+        "packagist": false
+    }, {
+        "type": "composer",
+        "url": "https://packagist.org/"
+    }],
     "require": {
         "php": ">=7.3.4",
         "illuminate/console": "5.8.*",
@@ -11,9 +17,13 @@
         "illuminate/events": "5.8.*",
         "illuminate/support": "5.8.*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.2"
+    },
     "autoload": {
         "psr-4": {
-            "Jakmall\\Recruitment\\Calculator\\": "src/"
+            "Jakmall\\Recruitment\\Calculator\\": "src/",
+            "Jakmall\\Recruitment\\Tests\\": "tests/"
         }
     },
     "config": {

@@ -1,22 +1,28 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Desta-PC
+ * Date: 7/13/2020
+ * Time: 8:07 PM
+ */
 
 namespace Jakmall\Recruitment\Calculator\Commands;
 
-class AddCommand extends StandardCalculator
+class SubtractCommand extends StandardCalculator
 {
     protected function getCommandVerb(): string
     {
-        return 'add';
+        return 'subtract';
     }
 
     protected function getCommandPassiveVerb(): string
     {
-        return 'added';
+        return 'subtracted';
     }
 
     protected function getOperator(): string
     {
-        return '+';
+        return '-';
     }
 
     /**
@@ -27,6 +33,7 @@ class AddCommand extends StandardCalculator
      */
     protected function calculate($number1, $number2)
     {
-        return $number1 + $number2;
+        return $number1 - $number2;
     }
+
 }
