@@ -64,8 +64,9 @@ abstract class StandardCalculator extends Command
         $numbers = $this->getInput();
         $description = $this->generateCalculationDescription($numbers);
         $result = $this->calculateAll($numbers);
+        $comment = sprintf('%s = %s', $description, $result);
 
-        $this->comment(sprintf('%s = %s', $description, $result));
+        $this->comment($comment);
     }
 
     protected function getInput(): array

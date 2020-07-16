@@ -15,7 +15,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 $container = new Container();
 $dispatcher = new Dispatcher();
 
-$app = new Application($container, $dispatcher, '0.3');
+$app = new Application($container, $dispatcher, '0.5');
 $app->setName('Calculator');
 
 $commands = require __DIR__.'/../commands.php';
