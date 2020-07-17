@@ -12,6 +12,8 @@ abstract class TestCase extends BaseTestCase
     {
         parent::__construct($name, $data, $dataName);
         $this->app = $this->createApplication();
+
+        $this->app->call('migrate');
     }
 
     /**

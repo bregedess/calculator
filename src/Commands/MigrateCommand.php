@@ -82,6 +82,11 @@ class MigrateCommand extends BaseMigrateCommand
     {
         $this->migrator->setConnection($this->option('database'));
 
+        //Create database.sqlite if not exists
+        if (!file_exists(__DIR__.'/../../database/database.sqlite')) {
+            file_put_contents(__DIR__.'/../../database/database.sqlite', '');
+        }
+
         if (! $this->migrator->repositoryExists()) {
             $this->call('migrate:install', array_filter([
                 '--database' => $this->option('database'),

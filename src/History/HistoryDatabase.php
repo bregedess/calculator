@@ -23,7 +23,7 @@ class HistoryDatabase implements CommandHistoryManagerInterface
     {
         return History::selectRaw(
             "   id, 
-                UPPER(SUBSTR(command, 1, 1)) || SUBSTR(command, 2), 
+                UPPER(SUBSTR(command, 1, 1)) || SUBSTR(command, 2) as command,
                 description, 
                 result, 
                 output, 
@@ -71,7 +71,7 @@ class HistoryDatabase implements CommandHistoryManagerInterface
     public function findWithParam(array $params) {
         return History::selectRaw(
             "   id, 
-                UPPER(SUBSTR(command, 1, 1)) || SUBSTR(command, 2), 
+                UPPER(SUBSTR(command, 1, 1)) || SUBSTR(command, 2) as command, 
                 description, 
                 result, 
                 output, 
