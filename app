@@ -9,5 +9,5 @@ try {
 
     $app->run(new ArgvInput(), new ConsoleOutput());
 } catch (Throwable $e) {
-    die($e->getMessage());
+    throw new Exception($e->getTraceAsString());
 }

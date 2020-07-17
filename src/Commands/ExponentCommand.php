@@ -9,6 +9,8 @@ namespace Jakmall\Recruitment\Calculator\Commands;
 
 
 use Illuminate\Console\Command;
+use Jakmall\Recruitment\Calculator\History\HistoryDatabase;
+use Jakmall\Recruitment\Calculator\History\HistoryFile;
 
 class ExponentCommand extends Command
 {
@@ -21,6 +23,16 @@ class ExponentCommand extends Command
      * @var string
      */
     protected $description;
+
+    /**
+     * @var HistoryDatabase
+     */
+    protected $historyDatabase;
+
+    /**
+     * @var HistoryFile
+     */
+    protected $historyFile;
 
     /**
      * @return string
@@ -48,8 +60,11 @@ class ExponentCommand extends Command
         return pow($base, $exp);
     }
 
-    public function __construct()
+    public function __construct(HistoryDatabase $historyDatabase, HistoryFile $historyFile)
     {
+        $this->historyDatabase = $historyDatabase;
+        $this->historyFile = $historyFile;
+
         $commandVerb = $this->getCommandVerb();
 
         $this->signature = sprintf(
@@ -70,9 +85,23 @@ class ExponentCommand extends Command
         $exp = $this->getExponent();
         $description = $this->generateCalculationDescription($base, $exp);
         $result = $this->calculate($base, $exp);
-        $comment = sprintf('%s = %s', $description, $result);
+        $output = sprintf('%s = %s', $description, $result);
 
-        $this->comment($comment);
+        $this->comment($output);
+
+        $this->historyDatabase->log([
+            $this->getCommandVerb(),
+            $description,
+            $result,
+            $output
+        ]);
+
+        $this->historyFile->log([
+            $this->getCommandVerb(),
+            $description,
+            $result,
+            $output
+        ]);
     }
 
     protected function getBase(): string
