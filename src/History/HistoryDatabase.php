@@ -27,7 +27,7 @@ class HistoryDatabase implements CommandHistoryManagerInterface
                 description, 
                 result, 
                 output, 
-                created_at")
+                created_at as time")
             ->get()
             ->toArray();
     }
@@ -75,10 +75,34 @@ class HistoryDatabase implements CommandHistoryManagerInterface
                 description, 
                 result, 
                 output, 
-                created_at")
+                created_at as time")
             ->whereIn('command', $params)
             ->get()
             ->toArray();
+    }
+
+    public function find($id) {
+        return History::selectRaw(
+            "   id, 
+                UPPER(SUBSTR(command, 1, 1)) || SUBSTR(command, 2) as command, 
+                description, 
+                result, 
+                output, 
+                created_at as time")
+            ->where('id', $id)
+            ->first();
+    }
+
+    public function delete($id) {
+        return History::selectRaw(
+            "   id, 
+                UPPER(SUBSTR(command, 1, 1)) || SUBSTR(command, 2) as command, 
+                description, 
+                result, 
+                output, 
+                created_at as time")
+            ->where('id', $id)
+            ->delete();
     }
 
 }

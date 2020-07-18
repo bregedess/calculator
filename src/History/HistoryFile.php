@@ -102,6 +102,19 @@ class HistoryFile implements CommandHistoryManagerInterface
         return $histories->toArray();
     }
 
+    public function delete($id) {
+        $histories = $this->checkAndGetFile();
+        $histories = collect(json_decode($histories, true));
+
+        $history = $histories->where('id', $id);
+        $histories->forget($history->keys()[0]);
+        $histories = $histories->values()->toJson(JSON_PRETTY_PRINT);
+
+        file_put_contents($this->getPathStorage().$this->getFile(), $histories);
+
+        return true;
+    }
+
     protected function transformer($histories) {
         $histories = $histories->map(function ($item) {
             $item['command'] = ucfirst($item['command']);

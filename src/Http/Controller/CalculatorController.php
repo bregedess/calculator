@@ -13,7 +13,7 @@ class CalculatorController
     protected $app;
     protected $response;
 
-    function __construct()
+    public function __construct()
     {
         $this->app = require __DIR__.'/../../../bootstrap/app.php';
 
@@ -30,6 +30,8 @@ class CalculatorController
         try {
             if ($action == 'pow') {
                 $this->app->call($action, ['base' => $input[0], 'exp' => $input[1]]);
+            } elseif (strpos($action, 'history') !== false) {
+                $this->app->call($action);
             } else {
                 $this->app->call($action, ['numbers' => $input]);
             }
